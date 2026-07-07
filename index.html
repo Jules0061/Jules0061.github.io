@@ -279,7 +279,7 @@
     background:var(--groove); color:var(--emerald);
   }
 
-  /* experience */
+  /* experience (current + past) */
   .advancement{
     display:flex; gap:14px;
     background:var(--panel);
@@ -289,10 +289,24 @@
   .adv-icon{
     width:42px; height:42px; flex:0 0 42px;
     background:var(--groove);
-    color:var(--gold);
+    position:relative;
     display:flex; align-items:center; justify-content:center;
     box-shadow:0 0 0 2px #000;
-    font-size:19px;
+    overflow:hidden;
+  }
+  .adv-icon img{
+    display:block;
+    width:100%; height:100%;
+    object-fit:cover;
+    image-rendering:pixelated;
+  }
+  .adv-icon-fallback{
+    display:none;
+    width:100%; height:100%;
+    align-items:center; justify-content:center;
+    color:var(--gold);
+    font-family:'Press Start 2P', monospace;
+    font-size:13px;
   }
   .adv-body h3{ font-size:15px; margin:0 0 4px; color:var(--ink); }
   .adv-date{ font-size:12.5px !important; color:var(--emerald); margin:0 0 7px !important; }
@@ -489,7 +503,11 @@
           <h2 class="pixel">Current Positions</h2>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">CD</div>
+            <div class="adv-icon">
+              <img src="current-clonedupe.png" alt=""
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="adv-icon-fallback">CD</span>
+            </div>
             <div class="adv-body">
               <h3>CloneDupe.net - Founder.</h3>
               <p class="adv-date">Since 2023-2026</p>
@@ -497,17 +515,25 @@
             </div>
           </div>
 
-
           <div class="advancement bevel-out">
-            <div class="adv-icon">★</div>
+            <div class="adv-icon">
+              <img src="current-spearmaceffa.png" alt=""
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="adv-icon-fallback">SM</span>
+            </div>
             <div class="adv-body">
               <h3>SpearMaceFFA.xyz - Head Developer.</h3>
               <p class="adv-date">Since 3+ months</p>
               <p>Server configuration + optimization, network developer & bug fixer.</p>
             </div>
           </div>
+
           <div class="advancement bevel-out">
-            <div class="adv-icon">★</div>
+            <div class="adv-icon">
+              <img src="current-netheritemaceffa.png" alt=""
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="adv-icon-fallback">NM</span>
+            </div>
             <div class="adv-body">
               <h3>NetheriteMaceFFA.net - Co Owner.</h3>
               <p class="adv-date">Since 2+ months</p>
@@ -516,12 +542,15 @@
           </div>
         </section>
 
-
         <section class="tab-panel" data-panel="past">
           <h2 class="pixel">Past Experience</h2>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">★</div>
+            <div class="adv-icon">
+              <img src="past-gekkesmp.png" alt=""
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="adv-icon-fallback">GS</span>
+            </div>
             <div class="adv-body">
               <h3>GekkeSMP.net - Developer</h3>
               <p class="adv-date">2025-2025</p>
@@ -530,7 +559,11 @@
           </div>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">★</div>
+            <div class="adv-icon">
+              <img src="past-hydrodupe.png" alt=""
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <span class="adv-icon-fallback">HD</span>
+            </div>
             <div class="adv-body">
               <h3>Play.HydroDupe.org - Developer</h3>
               <p class="adv-date">2024 — 2025</p>
@@ -543,7 +576,7 @@
           <h2 class="pixel">Contact</h2>
           <div class="contact-grid">
             <button type="button" class="contact-btn bevel-out" id="discordCopyBtn"><span id="discordLabel">Discord — infectedware</span></button>
-            <a href="mailto:developingjules@gmail.com" class="contact-btn bevel-out"><span>Email — developingjules@gmail.com</span></a>
+            <button type="button" class="contact-btn bevel-out" id="emailCopyBtn"><span id="emailLabel">Email — developingjules@gmail.com</span></button>
             <a href="https://github.com/Jules0061" target="_blank" rel="noopener noreferrer" class="contact-btn bevel-out"><span>GitHub — Jules0061</span></a>
             <a href="https://discord.gg/clonedupe" target="_blank" rel="noopener noreferrer" class="contact-btn bevel-out"><span>CloneDupe — discord.gg/clonedupe</span></a>
             <a href="https://instagram.com/jules_foucher" target="_blank" rel="noopener noreferrer" class="contact-btn bevel-out"><span>Instagram — jules_foucher</span></a>
@@ -588,8 +621,8 @@
       .forEach(function(row){ skillsList.appendChild(row); });
   }
 
-  // Copy-to-clipboard for Discord, with a legacy fallback for contexts
-  // where the Clipboard API isn't available (e.g. some local file:// views).
+  // Copy-to-clipboard helper, with a legacy fallback for contexts where the
+  // Clipboard API isn't available (e.g. some local file:// views).
   function copyToClipboard(text){
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).catch(function(){ legacyCopy(text); });
@@ -609,20 +642,24 @@
     document.body.removeChild(ta);
   }
 
-  const discordBtn = document.getElementById('discordCopyBtn');
-  const discordLabel = document.getElementById('discordLabel');
-  if(discordBtn && discordLabel){
-    const original = discordLabel.textContent;
-    discordBtn.addEventListener('click', function(){
-      copyToClipboard('infectedware');
-      discordLabel.textContent = 'Copied "infectedware" to clipboard!';
-      discordBtn.disabled = true;
+  function setupCopyButton(btnId, labelId, text){
+    const btn = document.getElementById(btnId);
+    const label = document.getElementById(labelId);
+    if(!btn || !label) return;
+    const original = label.textContent;
+    btn.addEventListener('click', function(){
+      copyToClipboard(text);
+      label.textContent = 'Copied "' + text + '" to clipboard!';
+      btn.disabled = true;
       setTimeout(function(){
-        discordLabel.textContent = original;
-        discordBtn.disabled = false;
+        label.textContent = original;
+        btn.disabled = false;
       }, 1600);
     });
   }
+
+  setupCopyButton('discordCopyBtn', 'discordLabel', 'infectedware');
+  setupCopyButton('emailCopyBtn', 'emailLabel', 'developingjules@gmail.com');
 })();
 </script>
 
