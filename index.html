@@ -60,6 +60,7 @@
     height:100vh;
     display:flex;
     flex-direction:column;
+    position:relative;
     background:var(--panel-alt);
     box-shadow:
       inset 3px 3px 0 var(--bevel-light),
@@ -351,6 +352,21 @@
 
   :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
+  /* visit badge — sits over every tab, not a section of its own */
+  .visit-badge{
+    position:absolute;
+    right:14px; bottom:12px;
+    background:var(--groove);
+    color:var(--ink-dim);
+    font-size:10.5px;
+    letter-spacing:.3px;
+    padding:4px 9px;
+    box-shadow:0 0 0 2px #000;
+    z-index:20;
+    pointer-events:none;
+  }
+  .visit-badge strong{ color:var(--emerald); font-weight:700; }
+
   @media (max-width:700px){
     .main-row{ flex-direction:column; min-height:0; }
     .sidebar{ width:100%; min-width:0; max-height:45vh; }
@@ -363,6 +379,7 @@
 <body>
 
 <div class="game-window">
+  <div class="visit-badge" id="visitBadge">Visits: <strong id="visitCount">—</strong></div>
   <div class="main-row">
     <aside class="sidebar">
       <div class="avatar-wrap">
@@ -517,7 +534,7 @@
               <span class="adv-icon-fallback">CD</span>
             </div>
             <div class="adv-body">
-              <h3><a href="https://discord.gg/clonedupe" target="_blank" rel="noopener noreferrer" class="adv-title-link">CloneDupe.net - Founder.</a></h3>
+              <h3><a href="https://discord.gg/REPLACE_CLONEDUPE" target="_blank" rel="noopener noreferrer" class="adv-title-link">CloneDupe.net - Founder.</a></h3>
               <p class="adv-date">Since 2023-2026</p>
               <p>Owner & full time developer & System Administrator.</p>
             </div>
@@ -530,7 +547,7 @@
               <span class="adv-icon-fallback">SM</span>
             </div>
             <div class="adv-body">
-              <h3><a href="https://discord.gg/spearmaceffa" target="_blank" rel="noopener noreferrer" class="adv-title-link">SpearMaceFFA.xyz - Head Developer.</a></h3>
+              <h3><a href="https://discord.gg/REPLACE_SPEARMACEFFA" target="_blank" rel="noopener noreferrer" class="adv-title-link">SpearMaceFFA.xyz - Head Developer.</a></h3>
               <p class="adv-date">Since 3+ months</p>
               <p>Server configuration + optimization, network developer & bug fixer.</p>
             </div>
@@ -543,7 +560,7 @@
               <span class="adv-icon-fallback">NM</span>
             </div>
             <div class="adv-body">
-              <h3><a href="https://discord.gg/netheritemaceffa" target="_blank" rel="noopener noreferrer" class="adv-title-link">NetheriteMaceFFA.net - Co Owner.</a></h3>
+              <h3><a href="https://discord.gg/REPLACE_NETHERITEMACEFFA" target="_blank" rel="noopener noreferrer" class="adv-title-link">NetheriteMaceFFA.net - Co Owner.</a></h3>
               <p class="adv-date">Since 2+ months</p>
               <p>Whole server developer & System Administrator.</p>
             </div>
@@ -560,8 +577,8 @@
               <span class="adv-icon-fallback">GS</span>
             </div>
             <div class="adv-body">
-              <h3><a href="https://discord.gg/purgesmp" target="_blank" rel="noopener noreferrer" class="adv-title-link">GekkeSMP.net - Developer</a></h3>
-              <p class="adv-date">2025 - 2025</p>
+              <h3><a href="https://discord.gg/REPLACE_GEKKESMP" target="_blank" rel="noopener noreferrer" class="adv-title-link">GekkeSMP.net - Developer</a></h3>
+              <p class="adv-date">2025-2025</p>
               <p>Whole server developer + System Administrator.</p>
             </div>
           </div>
@@ -573,7 +590,7 @@
               <span class="adv-icon-fallback">HD</span>
             </div>
             <div class="adv-body">
-              <h3><a href="https://discord.gg/4nNTxramXj" target="_blank" rel="noopener noreferrer" class="adv-title-link">Play.HydroDupe.org - Developer</a></h3>
+              <h3><a href="https://discord.gg/REPLACE_HYDRODUPE" target="_blank" rel="noopener noreferrer" class="adv-title-link">Play.HydroDupe.org - Developer</a></h3>
               <p class="adv-date">2024 — 2025</p>
               <p>Main developer, bug fixer, plugin management + System Administrator.</p>
             </div>
@@ -668,6 +685,53 @@
 
   setupCopyButton('discordCopyBtn', 'discordLabel', 'infectedware');
   setupCopyButton('emailCopyBtn', 'emailLabel', 'developingjules@gmail.com');
+
+  // Visit counter — records one visit per browser/device, then never again.
+  // Uses localStorage as the "have we already counted this device" flag,
+  // and a free visitor-counter API to keep a real running total.
+  // Honest limitation: this is per-browser, not per-hardware — clearing
+  // browser storage, using a different browser, or private/incognito mode
+  // will register as a new visit. No purely client-side method can fully
+  // stop a determined bot; this only stops accidental/naive double-counting.
+  (function(){
+    const visitCountEl = document.getElementById('visitCount');
+    if(!visitCountEl) return;
+
+    const FLAG_KEY = 'cv_visit_recorded_v1';
+    const CACHE_KEY = 'cv_visit_total_cached_v1';
+
+    function showTotal(total){
+      visitCountEl.textContent = (typeof total === 'number' && !isNaN(total)) ? total.toLocaleString() : '—';
+    }
+
+    let alreadyRecorded = null;
+    let cachedTotal = null;
+    try{
+      alreadyRecorded = localStorage.getItem(FLAG_KEY);
+      cachedTotal = localStorage.getItem(CACHE_KEY);
+    }catch(e){ /* localStorage unavailable — just skip de-duplication */ }
+
+    if(alreadyRecorded){
+      showTotal(cachedTotal ? parseInt(cachedTotal, 10) : null);
+      return;
+    }
+
+    // First time this browser has opened the page — record it once.
+    const domain = window.location.hostname || 'local-file-preview';
+    fetch('https://visitor.6developer.com/visit?domain=' + encodeURIComponent(domain))
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        const total = (data && typeof data.totalCount === 'number') ? data.totalCount : null;
+        try{
+          localStorage.setItem(FLAG_KEY, '1');
+          if(total !== null) localStorage.setItem(CACHE_KEY, String(total));
+        }catch(e){ /* ignore storage errors */ }
+        showTotal(total);
+      })
+      .catch(function(){
+        showTotal(null);
+      });
+  })();
 })();
 </script>
 
