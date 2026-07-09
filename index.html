@@ -37,7 +37,6 @@
 
   .pixel{ font-family:'Press Start 2P', monospace; }
 
-  /* links, everywhere on the page */
   a{ color:var(--link); text-decoration:none; word-break:break-word; }
   a:hover, a:focus-visible{ text-decoration:underline; }
 
@@ -54,7 +53,6 @@
       0 0 0 2px #000;
   }
 
-  /* ---------- window ---------- */
   .game-window{
     width:100vw;
     height:100vh;
@@ -72,7 +70,6 @@
     min-height:0;
   }
 
-  /* ---------- sidebar ---------- */
   .sidebar{
     width:30%;
     min-width:250px;
@@ -173,7 +170,6 @@
   }
   .nav-item:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
-  /* ---------- content ---------- */
   .content{ width:70%; display:flex; flex-direction:column; min-width:0; }
   .content-scroll{ padding:32px 44px; overflow-y:auto; height:100%; }
   .content-scroll::-webkit-scrollbar{ width:11px; }
@@ -197,7 +193,6 @@
   }
   .tab-panel p{ font-size:16px; line-height:1.75; color:var(--ink); margin:0 0 14px; }
 
-  /* about */
   .about-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
   .about-list li{ display:flex; align-items:flex-start; gap:13px; }
   .about-num{
@@ -213,7 +208,6 @@
     font-size:16px; line-height:1.65; color:var(--ink);
   }
 
-  /* skills */
   .skill-row{ margin-bottom:20px; }
   .skill-head{ display:flex; justify-content:space-between; align-items:center; font-size:15px; margin-bottom:6px; }
   .skill-left{ display:flex; align-items:center; gap:9px; }
@@ -244,7 +238,6 @@
   .skill-diamond{ --c1:#7be7e0; --c2:#238a86; }
   .skill-netherite{ --c1:#a89f9c; --c2:#4a423f; }
 
-  /* projects */
   .project-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -279,7 +272,6 @@
     background:var(--groove); color:var(--emerald);
   }
 
-  /* experience (current + past) */
   .advancement{
     display:flex; gap:14px;
     background:var(--panel);
@@ -320,7 +312,6 @@
   .adv-date{ font-size:12.5px !important; color:var(--emerald); margin:0 0 7px !important; }
   .adv-body p:last-child{ font-size:13.5px; color:var(--ink-dim); margin:0; }
 
-  /* contact */
   .contact-grid{ display:flex; flex-direction:column; gap:12px; max-width:440px; }
   .contact-btn{
     display:block;
@@ -609,9 +600,7 @@
     });
   });
 
-  // Skills: fill bar width + label from data-pct, then sort rows highest to lowest.
-  // Editing the data-pct value on a .skill-row in the HTML is all that's needed —
-  // the bar, the label, and the sort order all update from that one number.
+
   const skillsList = document.getElementById('skillsList');
   if(skillsList){
     const rows = Array.from(skillsList.querySelectorAll('.skill-row'));
@@ -629,8 +618,7 @@
       .forEach(function(row){ skillsList.appendChild(row); });
   }
 
-  // Copy-to-clipboard helper, with a legacy fallback for contexts where the
-  // Clipboard API isn't available (e.g. some local file:// views).
+
   function copyToClipboard(text){
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).catch(function(){ legacyCopy(text); });
