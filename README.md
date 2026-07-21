@@ -1,1 +1,1 @@
-My CV!
+My Minecraft CV / Portofolio.

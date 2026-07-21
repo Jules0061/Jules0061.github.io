@@ -1,355 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#121110">
+<meta name="description" content="Minecraft CV of Jules (infectedware) - Minecraft developer, server administrator and founder of CloneDupe.">
 <title>Minecraft CV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#121110;
-    --panel:#1b1815;
-    --panel-alt:#242019;
-    --panel-light:#332c22;
-    --groove:#0c0b0a;
-    --bevel-light:#463d2f;
-    --bevel-dark:#070605;
-    --ink:#e8e2d2;
-    --ink-dim:#8f8779;
-    --emerald:#46c66e;
-    --emerald-dim:#204a2f;
-    --gold:#e0b83f;
-    --redstone:#d94343;
-    --link:#4da6ff;
-  }
-
-  *{ box-sizing:border-box; border-radius:0 !important; }
-  html,body{ margin:0; padding:0; height:100%; overflow:hidden; }
-  body{
-    background:
-      repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 4px),
-      var(--bg);
-    color:var(--ink);
-    font-family:'JetBrains Mono', monospace;
-  }
-
-  .pixel{ font-family:'Press Start 2P', monospace; }
-
-  a{ color:var(--link); text-decoration:none; word-break:break-word; }
-  a:hover, a:focus-visible{ text-decoration:underline; }
-
-  .bevel-out{
-    box-shadow:
-      inset 2px 2px 0 var(--bevel-light),
-      inset -2px -2px 0 var(--bevel-dark),
-      0 0 0 2px #000;
-  }
-  .bevel-in{
-    box-shadow:
-      inset -2px -2px 0 var(--bevel-light),
-      inset 2px 2px 0 var(--bevel-dark),
-      0 0 0 2px #000;
-  }
-
-  .game-window{
-    width:100vw;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    background:var(--panel-alt);
-    box-shadow:
-      inset 3px 3px 0 var(--bevel-light),
-      inset -3px -3px 0 var(--bevel-dark);
-    overflow:hidden;
-  }
-  .main-row{
-    display:flex;
-    flex:1;
-    min-height:0;
-  }
-
-  .sidebar{
-    width:30%;
-    min-width:250px;
-    background:
-      repeating-linear-gradient(90deg, rgba(0,0,0,0.12) 0 1px, transparent 1px 18px),
-      var(--panel);
-    border-right:2px solid #000;
-    padding:24px 18px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-    overflow-y:auto;
-  }
-
-  .avatar-wrap{ position:relative; margin-top:4px; }
-  .avatar-slot{
-    width:130px; height:130px;
-    background:var(--groove);
-    position:relative;
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-  }
-  .avatar-placeholder{
-    font-size:42px; color:var(--ink-dim);
-    display:none;
-    width:100%; height:100%;
-    align-items:center; justify-content:center;
-  }
-  #avatarImg{
-    display:block;
-    width:100%; height:100%;
-    object-fit:cover;
-    image-rendering:pixelated;
-  }
-  .status-dot{
-    position:absolute; right:-4px; bottom:-4px;
-    width:18px; height:18px;
-    background:var(--emerald);
-    border:2px solid var(--panel);
-  }
-
-  .eyebrow{
-    font-size:10px; letter-spacing:2px;
-    color:var(--ink-dim); margin:8px 0 0;
-    font-family:'Press Start 2P', monospace;
-  }
-  .player-name{
-    font-family:'Press Start 2P', monospace;
-    font-size:17px; line-height:1.5;
-    text-align:center; margin:4px 0 0; color:var(--ink);
-    word-break:break-word;
-  }
-  .player-title{
-    font-size:14.5px; color:var(--emerald);
-    text-align:center; margin:0;
-  }
-  .server-tag{
-    font-size:13px; color:var(--ink-dim);
-    background:var(--groove);
-    padding:4px 10px;
-    box-shadow:inset 1px 1px 0 var(--bevel-dark), inset -1px -1px 0 var(--bevel-light);
-  }
-  .server-tag::before{ content:"#"; color:var(--gold); }
-
-  .nav{
-    width:100%;
-    display:flex; flex-direction:column; gap:8px;
-    margin-top:10px;
-  }
-  .nav-item{
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-    font-size:14.5px;
-    letter-spacing:.4px;
-    text-align:left;
-    padding:12px 14px;
-    background:var(--panel-light);
-    color:var(--ink);
-    border:none;
-    box-shadow:
-      inset 2px 2px 0 var(--bevel-light),
-      inset -2px -2px 0 var(--bevel-dark),
-      0 0 0 1px #000;
-    cursor:pointer;
-    position:relative;
-  }
-  .nav-item:hover{ color:var(--gold); }
-  .nav-item.active{
-    background:var(--groove);
-    color:var(--emerald);
-    box-shadow:
-      inset -2px -2px 0 var(--bevel-light),
-      inset 2px 2px 0 var(--bevel-dark),
-      0 0 0 1px #000;
-    border-left:5px solid var(--emerald);
-    padding-left:9px;
-  }
-  .nav-item:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
-
-  .content{ width:70%; display:flex; flex-direction:column; min-width:0; }
-  .content-scroll{ padding:32px 44px; overflow-y:auto; height:100%; }
-  .content-scroll::-webkit-scrollbar{ width:11px; }
-  .content-scroll::-webkit-scrollbar-track{ background:var(--groove); }
-  .content-scroll::-webkit-scrollbar-thumb{
-    background:var(--panel-light);
-    box-shadow:inset 1px 1px 0 var(--bevel-light), inset -1px -1px 0 var(--bevel-dark);
-  }
-
-  .tab-panel{ display:none; }
-  .tab-panel.active{ display:block; animation:fadein .15s ease; }
-  @keyframes fadein{ from{opacity:0; transform:translateY(3px);} to{opacity:1; transform:translateY(0);} }
-
-  .tab-panel h2{
-    font-family:'Press Start 2P', monospace;
-    font-size:19px;
-    color:var(--gold);
-    margin:0 0 24px;
-    padding-bottom:12px;
-    border-bottom:2px solid #000;
-  }
-  .tab-panel p{ font-size:16px; line-height:1.75; color:var(--ink); margin:0 0 14px; }
-
-  .about-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
-  .about-list li{ display:flex; align-items:flex-start; gap:13px; }
-  .about-num{
-    flex:0 0 28px; height:28px;
-    background:var(--groove); color:var(--gold);
-    font-family:'Press Start 2P', monospace;
-    font-size:11px;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 0 2px #000;
-    margin-top:2px;
-  }
-  .about-list li span:last-child{
-    font-size:16px; line-height:1.65; color:var(--ink);
-  }
-
-  .skill-row{ margin-bottom:20px; }
-  .skill-head{ display:flex; justify-content:space-between; align-items:center; font-size:15px; margin-bottom:6px; }
-  .skill-left{ display:flex; align-items:center; gap:9px; }
-  .skill-swatch{
-    width:15px; height:15px; flex:0 0 15px;
-    box-shadow:0 0 0 2px #000;
-    background-image:
-      repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 2px, transparent 2px 6px),
-      repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 2px, transparent 2px 6px),
-      linear-gradient(135deg, var(--c1) 50%, var(--c2) 50%);
-  }
-  .skill-name{ color:var(--ink); }
-  .skill-pct{ color:var(--c1); font-weight:700; }
-  .skill-track{
-    height:18px;
-    background:var(--groove);
-  }
-  .skill-fill{
-    height:100%;
-    background:
-      repeating-linear-gradient(90deg, var(--c1) 0 8px, var(--c2) 8px 9px);
-  }
-
-  .skill-emerald{ --c1:#5fdc84; --c2:#1f8143; }
-  .skill-redstone{ --c1:#e75c5c; --c2:#7d1f1f; }
-  .skill-gold{ --c1:#f0cf6b; --c2:#a9791c; }
-  .skill-ender{ --c1:#8a6bd9; --c2:#3d2a73; }
-  .skill-diamond{ --c1:#7be7e0; --c2:#238a86; }
-  .skill-netherite{ --c1:#a89f9c; --c2:#4a423f; }
-
-  .project-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-  }
-  .project-card{
-    background:var(--panel);
-    padding:16px;
-    display:flex;
-    gap:14px;
-  }
-  .block-icon{
-    width:50px; height:50px; flex:0 0 50px;
-    box-shadow:0 0 0 2px #000;
-    background-image:
-      repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 2px, transparent 2px 8px),
-      repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 2px, transparent 2px 8px),
-      linear-gradient(135deg, var(--c1) 50%, var(--c2) 50%);
-  }
-  .block-emerald{ --c1:#5fdc84; --c2:#1f8143; }
-  .block-redstone{ --c1:#e75c5c; --c2:#7d1f1f; }
-  .block-gold{ --c1:#f0cf6b; --c2:#a9791c; }
-  .block-ender{ --c1:#8a6bd9; --c2:#3d2a73; }
-  .block-diamond{ --c1:#7be7e0; --c2:#238a86; }
-  .block-netherite{ --c1:#a89f9c; --c2:#4a423f; }
-
-  .project-body h3{ font-size:15px; margin:0 0 7px; color:var(--ink); }
-  .project-body p{ font-size:13.5px; line-height:1.6; margin:0 0 9px; color:var(--ink-dim); }
-  .tags{ display:flex; flex-wrap:wrap; gap:6px; }
-  .tags span{
-    font-size:11px; padding:3px 7px;
-    background:var(--groove); color:var(--emerald);
-  }
-
-  .advancement{
-    display:flex; gap:14px;
-    background:var(--panel);
-    padding:16px;
-    margin-bottom:16px;
-  }
-  .adv-icon{
-    width:42px; height:42px; flex:0 0 42px;
-    background:var(--groove);
-    position:relative;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 0 2px #000;
-    overflow:hidden;
-  }
-  .adv-icon img{
-    display:block;
-    width:100%; height:100%;
-    object-fit:contain;
-    background:var(--groove);
-  }
-  .adv-title-link{
-    color:inherit;
-    text-decoration:none;
-  }
-  .adv-title-link:hover,
-  .adv-title-link:focus-visible{
-    text-decoration:underline;
-  }
-  .adv-icon-fallback{
-    display:none;
-    width:100%; height:100%;
-    align-items:center; justify-content:center;
-    color:var(--gold);
-    font-family:'Press Start 2P', monospace;
-    font-size:13px;
-  }
-  .adv-body h3{ font-size:15px; margin:0 0 4px; color:var(--ink); }
-  .adv-date{ font-size:12.5px !important; color:var(--emerald); margin:0 0 7px !important; }
-  .adv-body p:last-child{ font-size:13.5px; color:var(--ink-dim); margin:0; }
-
-  .contact-grid{ display:flex; flex-direction:column; gap:12px; max-width:440px; }
-  .contact-btn{
-    display:block;
-    width:100%;
-    appearance:none;
-    background:var(--panel-light);
-    color:var(--link);
-    text-decoration:none;
-    text-align:left;
-    font-family:'JetBrains Mono', monospace;
-    font-size:14.5px;
-    padding:13px 16px;
-    border:none;
-    box-shadow:
-      inset 2px 2px 0 var(--bevel-light),
-      inset -2px -2px 0 var(--bevel-dark),
-      0 0 0 1px #000;
-    cursor:pointer;
-  }
-  .contact-btn:hover{ color:var(--gold); text-decoration:none; }
-  .contact-btn:active{
-    box-shadow:
-      inset -2px -2px 0 var(--bevel-light),
-      inset 2px 2px 0 var(--bevel-dark),
-      0 0 0 1px #000;
-  }
-  .contact-btn:disabled{ cursor:default; opacity:0.85; }
-
-  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
-
-  @media (max-width:700px){
-    .main-row{ flex-direction:column; min-height:0; }
-    .sidebar{ width:100%; min-width:0; max-height:45vh; }
-    .content{ width:100%; flex:1; min-height:0; }
-    .content-scroll{ padding:20px; }
-    .project-grid{ grid-template-columns:1fr; }
-  }
-</style>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<script src="assets/js/tabs.js" defer></script>
+<script src="assets/js/skills.js" defer></script>
+<script src="assets/js/media-fallback.js" defer></script>
+<script src="assets/js/clipboard.js" defer></script>
 </head>
 <body>
 
@@ -357,101 +24,100 @@
   <div class="main-row">
     <aside class="sidebar">
       <div class="avatar-wrap">
-        <div class="avatar-slot bevel-out" id="avatarSlot">
-          <img id="avatarImg" src="profile.png" alt="Profile picture"
-            onerror="this.onerror=null; this.style.display='none'; document.getElementById('avatarPlaceholder').style.display='flex';">
-          <span class="avatar-placeholder" id="avatarPlaceholder">✚</span>
+        <div class="avatar-slot bevel-out" data-media>
+          <img src="assets/img/profile.png" alt="Profile picture" width="130" height="130" fetchpriority="high" decoding="async">
+          <span class="avatar-placeholder" aria-hidden="true">✚</span>
         </div>
         <div class="status-dot bevel-out"></div>
       </div>
 
-      <h1 class="player-name pixel">Jules</h1>
+      <h1 class="player-name">Jules</h1>
       <p class="player-title">Minecraft Developer</p>
       <span class="server-tag">Minecraft CV</span>
 
-      <nav class="nav" aria-label="CV sections">
-        <button class="nav-item active" data-tab="about">About Me</button>
-        <button class="nav-item" data-tab="skills">Skills</button>
-        <button class="nav-item" data-tab="projects">Projects</button>
-        <button class="nav-item" data-tab="current">Current Positions</button>
-        <button class="nav-item" data-tab="past">Past Experience</button>
-        <button class="nav-item" data-tab="contact">Contact Me</button>
-      </nav>
+      <div class="nav" role="tablist" aria-label="CV sections" aria-orientation="vertical" data-tablist>
+        <button type="button" class="nav-item active" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="true">About Me</button>
+        <button type="button" class="nav-item" role="tab" id="tab-skills" aria-controls="panel-skills" aria-selected="false" tabindex="-1">Skills</button>
+        <button type="button" class="nav-item" role="tab" id="tab-projects" aria-controls="panel-projects" aria-selected="false" tabindex="-1">Projects</button>
+        <button type="button" class="nav-item" role="tab" id="tab-current" aria-controls="panel-current" aria-selected="false" tabindex="-1">Current Positions</button>
+        <button type="button" class="nav-item" role="tab" id="tab-past" aria-controls="panel-past" aria-selected="false" tabindex="-1">Past Experience</button>
+        <button type="button" class="nav-item" role="tab" id="tab-contact" aria-controls="panel-contact" aria-selected="false" tabindex="-1">Contact Me</button>
+      </div>
     </aside>
 
     <main class="content">
       <div class="content-scroll">
 
-        <section class="tab-panel active" data-panel="about">
-          <h2 class="pixel">About Me</h2>
+        <section class="tab-panel active" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+          <h2>About Me</h2>
           <ol class="about-list">
-            <li><span class="about-num">1</span><span>Hey, I'm infectedware, also known as Jules, a 15-year old Minecraft developer. I've been developing on Minecraft since I was 11 years old, and it's something I've genuinely enjoyed ever since. Over the years, I've worked on a on a lot of plugins, custom systems, server configurations, and other Minecraft-related projects, allowing me to gain a lot of experience and improve my skills. This website is my CV, where you can learn more about me, see the projects I've worked on, and get an overview of my experience and knowledge in Minecraft development.</span></li>
-            <li><span class="about-num">2</span><span>I currently live in Romania, but I'm originally from France and moved here in 2021. I've really enjoyed living here, and I think Romania is a beautiful country with amazing traditions and culture. Although I sometimes miss my family since I only get to see them once or twice a year, I'm happy with my life here and have grown to love the country.</span></li>
-            <li><span class="about-num">3</span><span>At the moment, I'm re-developing CloneDupe, a Minecraft server that I originally created back in December 2023. It quickly became a big success before it was raided, which led to it shutting down for around 6 months. I decided to bring it back because I've always enjoyed developing it, and it's always been a dream of mine to build it into a large and successful Minecraft server.</span></li>
-            <li><span class="about-num">4</span><span>You can check out the CloneDupe Discord at <a href="https://discord.gg/clonedupe" target="_blank" rel="noopener noreferrer">https://discord.gg/clonedupe</a> to stay up to date with the latest news, announcements, development updates, and community events. If you'd like to support the server or browse our available ranks and packages, you can also visit our store at <a href="https://clonedupe.tebex.io" target="_blank" rel="noopener noreferrer">https://clonedupe.tebex.io</a>.</span></li>
+            <li><span class="about-num" aria-hidden="true">1</span><span>Hey, I'm infectedware, also known as Jules, a 15-year old Minecraft developer. I've been developing on Minecraft since I was 11 years old, and it's something I've genuinely enjoyed ever since. Over the years, I've worked on a on a lot of plugins, custom systems, server configurations, and other Minecraft-related projects, allowing me to gain a lot of experience and improve my skills. This website is my CV, where you can learn more about me, see the projects I've worked on, and get an overview of my experience and knowledge in Minecraft development.</span></li>
+            <li><span class="about-num" aria-hidden="true">2</span><span>I currently live in Romania, but I'm originally from France and moved here in 2021. I've really enjoyed living here, and I think Romania is a beautiful country with amazing traditions and culture. Although I sometimes miss my family since I only get to see them once or twice a year, I'm happy with my life here and have grown to love the country.</span></li>
+            <li><span class="about-num" aria-hidden="true">3</span><span>At the moment, I'm re-developing CloneDupe, a Minecraft server that I originally created back in December 2023. It quickly became a big success before it was raided, which led to it shutting down for around 6 months. I decided to bring it back because I've always enjoyed developing it, and it's always been a dream of mine to build it into a large and successful Minecraft server.</span></li>
+            <li><span class="about-num" aria-hidden="true">4</span><span>You can check out the CloneDupe Discord at <a href="https://discord.gg/clonedupe" target="_blank" rel="noopener noreferrer">https://discord.gg/clonedupe</a> to stay up to date with the latest news, announcements, development updates, and community events. If you'd like to support the server or browse our available ranks and packages, you can also visit our store at <a href="https://clonedupe.tebex.io" target="_blank" rel="noopener noreferrer">https://clonedupe.tebex.io</a>.</span></li>
           </ol>
         </section>
 
-        <section class="tab-panel" data-panel="skills">
-          <h2 class="pixel">Skills</h2>
+        <section class="tab-panel" id="panel-skills" role="tabpanel" aria-labelledby="tab-skills">
+          <h2>Skills</h2>
 
-          <div id="skillsList">
-            <div class="skill-row skill-emerald" data-pct="65">
+          <div data-skills>
+            <div class="skill-row skill-diamond" data-pct="100">
               <div class="skill-head">
-                <span class="skill-left"><span class="skill-swatch"></span><span class="skill-name">Skript</span></span>
+                <span class="skill-left"><span class="skill-swatch" aria-hidden="true"></span><span class="skill-name" id="skill-admin">Server Administration</span></span>
                 <span class="skill-pct"></span>
               </div>
-              <div class="skill-track bevel-in"><div class="skill-fill"></div></div>
+              <div class="skill-track bevel-in" role="progressbar" aria-labelledby="skill-admin" aria-valuemin="0" aria-valuemax="100"><div class="skill-fill"></div></div>
             </div>
 
             <div class="skill-row skill-gold" data-pct="95">
               <div class="skill-head">
-                <span class="skill-left"><span class="skill-swatch"></span><span class="skill-name">Plugins configuration</span></span>
+                <span class="skill-left"><span class="skill-swatch" aria-hidden="true"></span><span class="skill-name" id="skill-plugins-config">Plugins configuration</span></span>
                 <span class="skill-pct"></span>
               </div>
-              <div class="skill-track bevel-in"><div class="skill-fill"></div></div>
-            </div>
-
-            <div class="skill-row skill-diamond" data-pct="100">
-              <div class="skill-head">
-                <span class="skill-left"><span class="skill-swatch"></span><span class="skill-name">Server Administration</span></span>
-                <span class="skill-pct"></span>
-              </div>
-              <div class="skill-track bevel-in"><div class="skill-fill"></div></div>
+              <div class="skill-track bevel-in" role="progressbar" aria-labelledby="skill-plugins-config" aria-valuemin="0" aria-valuemax="100"><div class="skill-fill"></div></div>
             </div>
 
             <div class="skill-row skill-redstone" data-pct="75">
               <div class="skill-head">
-                <span class="skill-left"><span class="skill-swatch"></span><span class="skill-name">Server Optimization</span></span>
+                <span class="skill-left"><span class="skill-swatch" aria-hidden="true"></span><span class="skill-name" id="skill-optimization">Server Optimization</span></span>
                 <span class="skill-pct"></span>
               </div>
-              <div class="skill-track bevel-in"><div class="skill-fill"></div></div>
-            </div>
-
-            <div class="skill-row skill-ender" data-pct="50">
-              <div class="skill-head">
-                <span class="skill-left"><span class="skill-swatch"></span><span class="skill-name">Java</span></span>
-                <span class="skill-pct"></span>
-              </div>
-              <div class="skill-track bevel-in"><div class="skill-fill"></div></div>
+              <div class="skill-track bevel-in" role="progressbar" aria-labelledby="skill-optimization" aria-valuemin="0" aria-valuemax="100"><div class="skill-fill"></div></div>
             </div>
 
             <div class="skill-row skill-netherite" data-pct="75">
               <div class="skill-head">
-                <span class="skill-left"><span class="skill-swatch"></span><span class="skill-name">Plugin Knowledge</span></span>
+                <span class="skill-left"><span class="skill-swatch" aria-hidden="true"></span><span class="skill-name" id="skill-plugin-knowledge">Plugin Knowledge</span></span>
                 <span class="skill-pct"></span>
               </div>
-              <div class="skill-track bevel-in"><div class="skill-fill"></div></div>
+              <div class="skill-track bevel-in" role="progressbar" aria-labelledby="skill-plugin-knowledge" aria-valuemin="0" aria-valuemax="100"><div class="skill-fill"></div></div>
+            </div>
+
+            <div class="skill-row skill-emerald" data-pct="65">
+              <div class="skill-head">
+                <span class="skill-left"><span class="skill-swatch" aria-hidden="true"></span><span class="skill-name" id="skill-skript">Skript</span></span>
+                <span class="skill-pct"></span>
+              </div>
+              <div class="skill-track bevel-in" role="progressbar" aria-labelledby="skill-skript" aria-valuemin="0" aria-valuemax="100"><div class="skill-fill"></div></div>
+            </div>
+
+            <div class="skill-row skill-ender" data-pct="50">
+              <div class="skill-head">
+                <span class="skill-left"><span class="skill-swatch" aria-hidden="true"></span><span class="skill-name" id="skill-java">Java</span></span>
+                <span class="skill-pct"></span>
+              </div>
+              <div class="skill-track bevel-in" role="progressbar" aria-labelledby="skill-java" aria-valuemin="0" aria-valuemax="100"><div class="skill-fill"></div></div>
             </div>
           </div>
         </section>
 
-        <section class="tab-panel" data-panel="projects">
-          <h2 class="pixel">Projects</h2>
+        <section class="tab-panel" id="panel-projects" role="tabpanel" aria-labelledby="tab-projects">
+          <h2>Projects</h2>
           <div class="project-grid">
 
             <article class="project-card bevel-out">
-              <div class="block-icon block-emerald"></div>
+              <div class="block-icon block-emerald" aria-hidden="true"></div>
               <div class="project-body">
                 <h3>SlashStringFolia</h3>
                 <p>This was the first Java plugin I ever created and publicly released. I published it on both GitHub and Modrinth, and it marked the beginning of my journey into Java plugin development. You can check it out on GitHub at <a href="https://github.com/Jules0061/SlashStringFolia" target="_blank" rel="noopener noreferrer">https://github.com/Jules0061/SlashStringFolia</a> or download it from Modrinth at <a href="https://modrinth.com/plugin/slashstringfolia" target="_blank" rel="noopener noreferrer">https://modrinth.com/plugin/slashstringfolia</a>.</p>
@@ -460,7 +126,7 @@
             </article>
 
             <article class="project-card bevel-out">
-              <div class="block-icon block-redstone"></div>
+              <div class="block-icon block-redstone" aria-hidden="true"></div>
               <div class="project-body">
                 <h3>FoliaKillstreaks</h3>
                 <p>FoliaKillstreaks is one of my favorite plugins I've worked on and is currently used on CloneDupe. It's a highly optimized killstreak plugin with a lot of customizable features, including custom milestones, sounds, titles, chat broadcasts, and leaderboards, making it easy to configure for different types of servers. It's also fully open source, so anyone can view the code, contribute, or use it as a reference. You can check it out on GitHub at <a href="https://github.com/Jules0061/FoliaKillstreaks/" target="_blank" rel="noopener noreferrer">https://github.com/Jules0061/FoliaKillstreaks/</a>.</p>
@@ -469,7 +135,7 @@
             </article>
 
             <article class="project-card bevel-out">
-              <div class="block-icon block-gold"></div>
+              <div class="block-icon block-gold" aria-hidden="true"></div>
               <div class="project-body">
                 <h3>FoliaDupe</h3>
                 <p>FoliaDupe is another one of my favorite plugins I've developed and is also currently used on CloneDupe. It's a highly optimized, open-source dupe plugin with a lot of customizable features, including configurable dupe amounts, drop overflow handling, customizable permissions, blacklisted materials, blacklisted NBT keywords, and fully customizable messages. You can check it out on GitHub at <a href="https://github.com/Jules0061/FoliaDupe/" target="_blank" rel="noopener noreferrer">https://github.com/Jules0061/FoliaDupe/</a>.</p>
@@ -478,7 +144,7 @@
             </article>
 
             <article class="project-card bevel-out">
-              <div class="block-icon block-diamond"></div>
+              <div class="block-icon block-diamond" aria-hidden="true"></div>
               <div class="project-body">
                 <h3>Work in progress..</h3>
                 <p>Coming soon.</p>
@@ -487,7 +153,7 @@
             </article>
 
             <article class="project-card bevel-out">
-              <div class="block-icon block-netherite"></div>
+              <div class="block-icon block-netherite" aria-hidden="true"></div>
               <div class="project-body">
                 <h3>Work in progress..</h3>
                 <p>Coming soon.</p>
@@ -498,57 +164,53 @@
           </div>
         </section>
 
-        <section class="tab-panel" data-panel="current">
-          <h2 class="pixel">Current Positions</h2>
+        <section class="tab-panel" id="panel-current" role="tabpanel" aria-labelledby="tab-current">
+          <h2>Current Positions</h2>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">
-              <img src="current-clonedupe.png" alt=""
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <span class="adv-icon-fallback">CD</span>
+            <div class="adv-icon" data-media>
+              <img src="assets/img/current-clonedupe.png" alt="" width="42" height="42" decoding="async">
+              <span class="adv-icon-fallback" aria-hidden="true">CD</span>
             </div>
             <div class="adv-body">
               <h3><a href="https://discord.gg/clonedupe" target="_blank" rel="noopener noreferrer" class="adv-title-link">CloneDupe.net - Founder.</a></h3>
               <p class="adv-date">Since 2023-2026</p>
-              <p>Owner & full time developer & System Administrator.</p>
+              <p>Owner &amp; full time developer &amp; System Administrator.</p>
             </div>
           </div>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">
-              <img src="current-spearmaceffa.png" alt=""
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <span class="adv-icon-fallback">SM</span>
+            <div class="adv-icon" data-media>
+              <img src="assets/img/current-spearmaceffa.png" alt="" width="42" height="42" decoding="async">
+              <span class="adv-icon-fallback" aria-hidden="true">SM</span>
             </div>
             <div class="adv-body">
               <h3><a href="https://discord.gg/spearmaceffa" target="_blank" rel="noopener noreferrer" class="adv-title-link">SpearMaceFFA.xyz - Head Developer.</a></h3>
               <p class="adv-date">Since 3+ months</p>
-              <p>Server configuration + optimization, network developer & bug fixer.</p>
+              <p>Server configuration + optimization, network developer &amp; bug fixer.</p>
             </div>
           </div>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">
-              <img src="current-netheritemaceffa.png" alt=""
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <span class="adv-icon-fallback">NM</span>
+            <div class="adv-icon" data-media>
+              <img src="assets/img/current-netheritemaceffa.png" alt="" width="42" height="42" decoding="async">
+              <span class="adv-icon-fallback" aria-hidden="true">NM</span>
             </div>
             <div class="adv-body">
               <h3><a href="https://discord.gg/netheritemaceffa" target="_blank" rel="noopener noreferrer" class="adv-title-link">NetheriteMaceFFA.net - Co Owner.</a></h3>
               <p class="adv-date">Since 2+ months</p>
-              <p>Whole server developer & System Administrator.</p>
+              <p>Whole server developer &amp; System Administrator.</p>
             </div>
           </div>
         </section>
 
-        <section class="tab-panel" data-panel="past">
-          <h2 class="pixel">Past Experience</h2>
+        <section class="tab-panel" id="panel-past" role="tabpanel" aria-labelledby="tab-past">
+          <h2>Past Experience</h2>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">
-              <img src="past-gekkesmp.png" alt=""
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <span class="adv-icon-fallback">GS</span>
+            <div class="adv-icon" data-media>
+              <img src="assets/img/past-gekkesmp.png" alt="" width="42" height="42" decoding="async">
+              <span class="adv-icon-fallback" aria-hidden="true">GS</span>
             </div>
             <div class="adv-body">
               <h3><a href="https://discord.gg/purgesmp" target="_blank" rel="noopener noreferrer" class="adv-title-link">GekkeSMP.net - Developer</a></h3>
@@ -558,10 +220,9 @@
           </div>
 
           <div class="advancement bevel-out">
-            <div class="adv-icon">
-              <img src="past-hydrodupe.png" alt=""
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <span class="adv-icon-fallback">HD</span>
+            <div class="adv-icon" data-media>
+              <img src="assets/img/past-hydrodupe.png" alt="" width="42" height="42" decoding="async">
+              <span class="adv-icon-fallback" aria-hidden="true">HD</span>
             </div>
             <div class="adv-body">
               <h3><a href="https://discord.gg/4nNTxramXj" target="_blank" rel="noopener noreferrer" class="adv-title-link">Play.HydroDupe.org - Developer</a></h3>
@@ -571,93 +232,22 @@
           </div>
         </section>
 
-        <section class="tab-panel" data-panel="contact">
-          <h2 class="pixel">Contact</h2>
+        <section class="tab-panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
+          <h2>Contact</h2>
           <div class="contact-grid">
-            <button type="button" class="contact-btn bevel-out" id="discordCopyBtn"><span id="discordLabel">Discord — infectedware</span></button>
-            <button type="button" class="contact-btn bevel-out" id="emailCopyBtn"><span id="emailLabel">Email — developingjules@gmail.com</span></button>
+            <button type="button" class="contact-btn bevel-out" data-copy="infectedware"><span class="contact-label">Discord — infectedware</span></button>
+            <button type="button" class="contact-btn bevel-out" data-copy="developingjules@gmail.com"><span class="contact-label">Email — developingjules@gmail.com</span></button>
             <a href="https://github.com/Jules0061" target="_blank" rel="noopener noreferrer" class="contact-btn bevel-out"><span>GitHub — Jules0061</span></a>
             <a href="https://discord.gg/clonedupe" target="_blank" rel="noopener noreferrer" class="contact-btn bevel-out"><span>CloneDupe — discord.gg/clonedupe</span></a>
             <a href="https://instagram.com/jules_foucher" target="_blank" rel="noopener noreferrer" class="contact-btn bevel-out"><span>Instagram — jules_foucher</span></a>
           </div>
+          <p id="copyStatus" class="visually-hidden" role="status"></p>
         </section>
 
       </div>
     </main>
   </div>
 </div>
-
-<script>
-(function(){
-  const navItems = document.querySelectorAll('.nav-item');
-  const panels = document.querySelectorAll('.tab-panel');
-  navItems.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      navItems.forEach(function(b){ b.classList.remove('active'); });
-      panels.forEach(function(p){ p.classList.remove('active'); });
-      btn.classList.add('active');
-      document.querySelector('.tab-panel[data-panel="' + btn.dataset.tab + '"]').classList.add('active');
-    });
-  });
-
-
-  const skillsList = document.getElementById('skillsList');
-  if(skillsList){
-    const rows = Array.from(skillsList.querySelectorAll('.skill-row'));
-
-    rows.forEach(function(row){
-      const pct = Math.max(0, Math.min(100, parseFloat(row.dataset.pct) || 0));
-      const fill = row.querySelector('.skill-fill');
-      const label = row.querySelector('.skill-pct');
-      if(fill) fill.style.width = pct + '%';
-      if(label) label.textContent = pct + '%';
-    });
-
-    rows
-      .sort(function(a, b){ return (parseFloat(b.dataset.pct) || 0) - (parseFloat(a.dataset.pct) || 0); })
-      .forEach(function(row){ skillsList.appendChild(row); });
-  }
-
-
-  function copyToClipboard(text){
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).catch(function(){ legacyCopy(text); });
-    } else {
-      legacyCopy(text);
-    }
-  }
-  function legacyCopy(text){
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(ta);
-  }
-
-  function setupCopyButton(btnId, labelId, text){
-    const btn = document.getElementById(btnId);
-    const label = document.getElementById(labelId);
-    if(!btn || !label) return;
-    const original = label.textContent;
-    btn.addEventListener('click', function(){
-      copyToClipboard(text);
-      label.textContent = 'Copied "' + text + '" to clipboard!';
-      btn.disabled = true;
-      setTimeout(function(){
-        label.textContent = original;
-        btn.disabled = false;
-      }, 1600);
-    });
-  }
-
-  setupCopyButton('discordCopyBtn', 'discordLabel', 'infectedware');
-  setupCopyButton('emailCopyBtn', 'emailLabel', 'developingjules@gmail.com');
-})();
-</script>
 
 </body>
 </html>
