@@ -486,3 +486,237 @@
   cursor: default;
   opacity: 0.85;
 }
+
+.cd-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.cd-block p:last-child {
+  margin-bottom: 0;
+}
+
+.tab-panel.active .cd-block {
+  animation: fade-in 0.35s ease both;
+}
+
+.tab-panel.active .cd-block:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.tab-panel.active .cd-block:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.tab-panel.active .cd-block:nth-child(4) {
+  animation-delay: 0.18s;
+}
+
+.tab-panel.active .cd-block:nth-child(5) {
+  animation-delay: 0.24s;
+}
+
+.tab-panel.active .cd-block:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+.cd-subheading {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--gold);
+  margin: 0 0 14px;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--groove);
+  overflow-wrap: break-word;
+}
+
+.cd-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--panel);
+  padding: 18px;
+}
+
+.cd-logo {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  background: var(--groove);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px var(--outline);
+  overflow: hidden;
+}
+
+.cd-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  background: var(--groove);
+}
+
+.cd-logo-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-family: var(--font-pixel);
+  font-size: 18px;
+}
+
+.cd-logo.is-fallback img {
+  display: none;
+}
+
+.cd-logo.is-fallback .cd-logo-fallback {
+  display: flex;
+}
+
+.cd-header-body {
+  min-width: 0;
+}
+
+.cd-header-body h3 {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0 0 10px;
+  overflow-wrap: break-word;
+}
+
+.cd-header .cd-tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  margin: 0 0 10px;
+}
+
+.cd-header .cd-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--emerald);
+  margin: 0;
+}
+
+.cd-status-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  background: var(--emerald);
+  box-shadow: 0 0 0 2px var(--outline);
+  animation: cd-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes cd-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.cd-role-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 16px;
+}
+
+.cd-role-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.cd-role-list li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  background: var(--emerald);
+  box-shadow: 0 0 0 2px var(--outline);
+}
+
+.cd-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.cd-info {
+  min-width: 0;
+  background: var(--panel);
+  padding: 12px 14px;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.cd-info:hover {
+  background: var(--panel-light);
+  transform: translateY(-2px);
+}
+
+.cd-info-label {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 6px;
+}
+
+.cd-info-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+
+.cd-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.cd-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cd-link:hover {
+  background: var(--groove);
+}
+
+.cd-link span:last-child {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel.active .cd-block {
+    animation-delay: 0s !important;
+  }
+}
