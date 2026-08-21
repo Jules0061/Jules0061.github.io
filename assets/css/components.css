@@ -270,10 +270,6 @@
   object-fit: contain;
 }
 
-.skill-logo-lg {
-  transform: scale(1.34);
-}
-
 .skill-name {
   color: var(--ink);
 }

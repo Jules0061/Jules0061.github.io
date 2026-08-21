@@ -17,9 +17,9 @@ javascript.png
   transparent margin trimmed to the artwork bounds.
 
 java.svg
-  Java programming language logo - Oracle Corporation
-  https://en.wikipedia.org/wiki/File:Java_programming_language_logo.svg
-  Oracle trademark, used nominatively to identify the language.
+  Java logo, circular flat icon variant
+  Supplied by the site owner. Java is an Oracle trademark, used
+  nominatively to identify the language.
 
 skript.png
   Skript logo - SkriptLang project
