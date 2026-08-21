@@ -1,0 +1,26 @@
+Language logos used in the Skills section, sourced from Wikimedia Commons.
+
+html5.svg
+  HTML5 Logo - W3C
+  https://commons.wikimedia.org/wiki/File:HTML5_logo_and_wordmark.svg
+  Licence: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+  Modified: wordmark removed, viewBox cropped to the shield.
+
+python.svg
+  Python logo - Python Software Foundation
+  https://commons.wikimedia.org/wiki/File:Python-logo-notext.svg
+  Used under the PSF trademark usage policy to identify the language.
+
+javascript.png
+  JavaScript shield logo
+  Supplied by the site owner; "JavaScript" wordmark cropped off and
+  transparent margin trimmed to the artwork bounds.
+
+java.svg
+  Java programming language logo - Oracle Corporation
+  https://en.wikipedia.org/wiki/File:Java_programming_language_logo.svg
+  Oracle trademark, used nominatively to identify the language.
+
+skript.png
+  Skript logo - SkriptLang project
+  Supplied by the site owner; transparent margin trimmed to the artwork bounds.
