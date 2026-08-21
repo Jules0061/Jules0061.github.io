@@ -24,3 +24,9 @@ java.svg
 skript.png
   Skript logo - SkriptLang project
   Supplied by the site owner; transparent margin trimmed to the artwork bounds.
+
+css.svg
+  CSS3 Logo - W3C
+  https://commons.wikimedia.org/wiki/File:CSS3_logo_and_wordmark.svg
+  Licence: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+  Modified: "CSS" wordmark removed, viewBox cropped to the shield.
