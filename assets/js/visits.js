@@ -16,8 +16,8 @@
   const OFFSET = 79;
 
   const endpoints = (op) => op === 'up'
-    ? [`${PROXY}/up`, `${ABACUS}/hit/${NAMESPACE}/${KEY}`]
-    : [`${PROXY}/`, `${ABACUS}/get/${NAMESPACE}/${KEY}`];
+    ? [`${ABACUS}/hit/${NAMESPACE}/${KEY}`, `${PROXY}/up`]
+    : [`${ABACUS}/get/${NAMESPACE}/${KEY}`, `${PROXY}/`];
 
   const canvasSignal = () => {
     try {
@@ -121,7 +121,11 @@
         cache: 'no-store',
         signal: controller.signal
       });
-      if (!response.ok) throw new Error(String(response.status));
+      if (!response.ok) {
+        const error = new Error(String(response.status));
+        error.fatal = response.status >= 400 && response.status < 500;
+        throw error;
+      }
 
       const data = await response.json();
       const payload = data?.data ?? data;
@@ -151,7 +155,7 @@
         try {
           return await request(url, id);
         } catch (error) {
-          if (tries === RETRIES - 1) break;
+          if (error.fatal || tries === RETRIES - 1) break;
           await wait(RETRY_DELAY * (tries + 1));
         }
       }
