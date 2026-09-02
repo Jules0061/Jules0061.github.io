@@ -13,6 +13,7 @@
   const TIMEOUT = 6000;
   const RETRIES = 3;
   const RETRY_DELAY = 700;
+  const OFFSET = 79;
 
   const endpoints = (op) => op === 'up'
     ? [`${PROXY}/up`, `${ABACUS}/hit/${NAMESPACE}/${KEY}`]
@@ -104,7 +105,7 @@
   };
 
   const render = (count) => {
-    el.textContent = Number(count).toLocaleString('en-US');
+    el.textContent = Number(count + OFFSET).toLocaleString('en-US');
     el.hidden = false;
   };
 
