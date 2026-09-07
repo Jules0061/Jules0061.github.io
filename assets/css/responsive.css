@@ -14,10 +14,6 @@
     --content-pad-inline: 26px;
     --avatar-size: 110px;
   }
-
-  .project-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 @media (max-width: 700px) {
@@ -67,28 +63,8 @@
     margin-bottom: 18px;
   }
 
-  .advancement,
-  .project-card {
+  .advancement {
     padding: 14px;
-  }
-
-  .cd-stack {
-    gap: 22px;
-  }
-
-  .cd-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 13px;
-    padding: 14px;
-  }
-
-  .cd-header-body h3 {
-    font-size: 12px;
-  }
-
-  .cd-subheading {
-    font-size: 11px;
   }
 }
 
@@ -111,21 +87,5 @@
   .tab-panel p,
   .about-list li span:last-child {
     font-size: 15px;
-  }
-
-  .cd-header-body h3 {
-    font-size: 11px;
-  }
-
-  .cd-subheading {
-    font-size: 10px;
-  }
-
-  .cd-info-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .cd-links {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
